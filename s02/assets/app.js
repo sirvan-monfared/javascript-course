@@ -2,6 +2,9 @@ const defaultValue = 0;
 
 let result = defaultValue;
 
+const logEntries = [];
+
+
 function writeOutput(initialResult, inputValue, operand)
 {
     const operationDesc = `${initialResult} ${operand} ${inputValue}`;
@@ -9,6 +12,9 @@ function writeOutput(initialResult, inputValue, operand)
     writeResult(result);
 
     writeOperation(operationDesc);
+
+    // logEntries.push(inputValue);
+    // console.log(logEntries);
 }
 
 
@@ -21,6 +27,18 @@ function sum() {
     result = result + inputValue;
     
     writeOutput(initialResult, inputValue, '+');
+
+
+    const logObject = {
+        operation: 'ADD',
+        prevResult: initialResult,
+        operand: inputValue,
+        result: result
+    }
+
+
+    logEntries.push(logObject);
+    console.log(logEntries);
 }
 
 function subtract() {
