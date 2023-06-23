@@ -12,9 +12,19 @@ function writeOutput(initialResult, inputValue, operand)
     writeResult(result);
 
     writeOperation(operationDesc);
+}
 
-    // logEntries.push(inputValue);
-    // console.log(logEntries);
+function createLogOutput(operationId, prevResult, inputValue, finalResult)
+{
+    const logObject = {
+        operation: operationId,
+        prevResult: prevResult,
+        operand: inputValue,
+        result: finalResult
+    }
+
+    logEntries.push(logObject);
+    console.log(logEntries);
 }
 
 
@@ -28,17 +38,8 @@ function sum() {
     
     writeOutput(initialResult, inputValue, '+');
 
-
-    const logObject = {
-        operation: 'ADD',
-        prevResult: initialResult,
-        operand: inputValue,
-        result: result
-    }
-
-
-    logEntries.push(logObject);
-    console.log(logEntries);
+    createLogOutput('ADD', initialResult, inputValue, result);
+    
 }
 
 function subtract() {
@@ -49,6 +50,9 @@ function subtract() {
     result = result - inputValue;
     
     writeOutput(initialResult, inputValue, '-');
+
+
+    createLogOutput('SUBTRACT', initialResult, inputValue, result);
 }
 
 function multiply() {
@@ -59,6 +63,8 @@ function multiply() {
     result = result * inputValue;
     
     writeOutput(initialResult, inputValue, '*');
+
+    createLogOutput('MULTIPLY', initialResult, inputValue, result);
 }
 
 
@@ -70,6 +76,8 @@ function divide() {
     result = result / inputValue;
     
     writeOutput(initialResult, inputValue, '/');
+
+    createLogOutput('DIVIDE', initialResult, inputValue, result);
 }
 
 
