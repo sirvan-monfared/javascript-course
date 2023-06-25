@@ -4,75 +4,82 @@ let result = defaultValue;
 
 const logEntries = [];
 
+function writeOutput(initialResult, inputValue, operand) {
+  const operationDesc = `${initialResult} ${operand} ${inputValue}`;
 
-function writeOutput(initialResult, inputValue, operand)
-{
-    const operationDesc = `${initialResult} ${operand} ${inputValue}`;
+  writeResult(result);
 
-    writeResult(result);
-
-    writeOperation(operationDesc);
+  writeOperation(operationDesc);
 }
 
-function createLogOutput(operationId, prevResult, inputValue, finalResult)
-{
-    const logObject = {
-        operation: operationId,
-        prevResult: prevResult,
-        operand: inputValue,
-        result: finalResult
-    }
+function createLogOutput(operationId, prevResult, inputValue, finalResult) {
+  const logObject = {
+    operation: operationId,
+    prevResult: prevResult,
+    operand: inputValue,
+    result: finalResult,
+  };
 
-    logEntries.push(logObject);
-    console.log(logEntries);
+  logEntries.push(logObject);
+  console.log(logEntries);
 }
 
 function calculate(operation) {
-    const initialResult = result;
+  if (
+    operation !== "ADD" &&
+    operation !== "SUBTRACT" &&
+    operation !== "MULTIPLY" &&
+    operation !== "DIVIDE"
+  ) {
+    alert("YOU CHOSE AN INVALID OPERATION");
+    return;
+  }
 
-    const inputValue = +inputElm.value;
+  //   if ( operation === "ADD" || operation === "SUBTRACT" || operation === "MULTIPLY" || operation === "DIVIDE") {
+  const initialResult = result;
 
-    let operator;
+  const inputValue = +inputElm.value;
 
-    if (operation === 'ADD') {
-        result = result + inputValue;
-        operator = '+';
-    } else if (operation === 'SUBTRACT') {
-        result = result - inputValue;
-        operator = '-';
-    } else if (operation === 'MULTIPLY') {
-        result = result * inputValue;
-        operator = '*';
-    } else if (operation === 'DIVIDE') {
-        result = result / inputValue;
-        operator = '/';
-    }
+  let operator;
 
-    createLogOutput(operation, initialResult, inputValue, result);
-    writeOutput(initialResult, inputValue, operator);
+  if (operation === "ADD") {
+    result = result + inputValue;
+    operator = "+";
+  } else if (operation === "SUBTRACT") {
+    result = result - inputValue;
+    operator = "-";
+  } else if (operation === "MULTIPLY") {
+    result = result * inputValue;
+    operator = "*";
+  } else if (operation === "DIVIDE") {
+    result = result / inputValue;
+    operator = "/";
+  }
+
+  createLogOutput(operation, initialResult, inputValue, result);
+  writeOutput(initialResult, inputValue, operator);
+  //   } else {
+  //     alert('YOU CHOSE AN INVALID OPERATION');
+  //   }
 }
 
-
-
 function sum() {
-    calculate('ADD');
+  calculate("ADDZZZZZZ");
 }
 
 function subtract() {
-    calculate('SUBTRACT');
+  calculate("SUBTRACT");
 }
 
 function multiply() {
-    calculate('MULTIPLY');
+  calculate("MULTIPLY");
 }
-
 
 function divide() {
-    calculate('DIVIDEZ');
+  calculate("DIVIDE");
 }
 
-
-addElm.addEventListener('click', sum);
-minusElm.addEventListener('click', subtract);
-multiplyElm.addEventListener('click', multiply);
-divideElm.addEventListener('click', divide);
+addElm.addEventListener("click", sum);
+minusElm.addEventListener("click", subtract);
+multiplyElm.addEventListener("click", multiply);
+divideElm.addEventListener("click", divide);
