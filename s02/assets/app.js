@@ -28,6 +28,7 @@ function createLogOutput(operationId, prevResult, inputValue, finalResult)
 }
 
 
+
 function sum() {
 
     const initialResult = result;
