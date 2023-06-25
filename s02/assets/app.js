@@ -27,58 +27,48 @@ function createLogOutput(operationId, prevResult, inputValue, finalResult)
     console.log(logEntries);
 }
 
+function calculate(operation) {
+    const initialResult = result;
+
+    const inputValue = +inputElm.value;
+
+    let operator;
+
+    if (operation === 'ADD') {
+        result = result + inputValue;
+        operator = '+';
+    } else if (operation === 'SUBTRACT') {
+        result = result - inputValue;
+        operator = '-';
+    } else if (operation === 'MULTIPLY') {
+        result = result * inputValue;
+        operator = '*';
+    } else if (operation === 'DIVIDE') {
+        result = result / inputValue;
+        operator = '/';
+    }
+
+    createLogOutput(operation, initialResult, inputValue, result);
+    writeOutput(initialResult, inputValue, operator);
+}
+
 
 
 function sum() {
-
-    const initialResult = result;
-
-    const inputValue = +inputElm.value;
-
-    result = result + inputValue;
-    
-    writeOutput(initialResult, inputValue, '+');
-
-    createLogOutput('ADD', initialResult, inputValue, result);
-    
+    calculate('ADD');
 }
 
 function subtract() {
-    const initialResult = result;
-
-    const inputValue = +inputElm.value;
-
-    result = result - inputValue;
-    
-    writeOutput(initialResult, inputValue, '-');
-
-
-    createLogOutput('SUBTRACT', initialResult, inputValue, result);
+    calculate('SUBTRACT');
 }
 
 function multiply() {
-    const initialResult = result;
-
-    const inputValue = +inputElm.value;
-
-    result = result * inputValue;
-    
-    writeOutput(initialResult, inputValue, '*');
-
-    createLogOutput('MULTIPLY', initialResult, inputValue, result);
+    calculate('MULTIPLY');
 }
 
 
 function divide() {
-    const initialResult = result;
-
-    const inputValue = +inputElm.value;
-
-    result = result / inputValue;
-    
-    writeOutput(initialResult, inputValue, '/');
-
-    createLogOutput('DIVIDE', initialResult, inputValue, result);
+    calculate('DIVIDEZ');
 }
 
 
