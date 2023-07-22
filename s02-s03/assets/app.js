@@ -25,20 +25,25 @@ function createLogOutput(operationId, prevResult, inputValue, finalResult) {
 }
 
 function calculate(operation) {
+
+  const initialResult = result;
+  const inputValue = +inputElm.value;
+
   if (
     operation !== "ADD" &&
     operation !== "SUBTRACT" &&
     operation !== "MULTIPLY" &&
-    operation !== "DIVIDE"
+    operation !== "DIVIDE" ||
+    !inputValue
   ) {
-    alert("YOU CHOSE AN INVALID OPERATION");
+    alert("YOU CHOSE AN INVALID OPERATION OR NUMBER");
     return;
   }
 
   //   if ( operation === "ADD" || operation === "SUBTRACT" || operation === "MULTIPLY" || operation === "DIVIDE") {
-  const initialResult = result;
+  
 
-  const inputValue = +inputElm.value;
+  
 
   let operator;
 
@@ -64,7 +69,7 @@ function calculate(operation) {
 }
 
 function sum() {
-  calculate("ADDZZZZZZ");
+  calculate("ADD");
 }
 
 function subtract() {
