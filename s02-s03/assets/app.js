@@ -68,23 +68,7 @@ function calculate(operation) {
   //   }
 }
 
-function sum() {
-  calculate("ADD");
-}
-
-function subtract() {
-  calculate("SUBTRACT");
-}
-
-function multiply() {
-  calculate("MULTIPLY");
-}
-
-function divide() {
-  calculate("DIVIDE");
-}
-
-addElm.addEventListener("click", sum);
-minusElm.addEventListener("click", subtract);
-multiplyElm.addEventListener("click", multiply);
-divideElm.addEventListener("click", divide);
+addElm.addEventListener("click", calculate.bind(this,"ADD"));
+minusElm.addEventListener("click", calculate.bind(this, "SUBTRACT"));
+multiplyElm.addEventListener("click", calculate.bind(this, "MULTIPLY"));
+divideElm.addEventListener("click", calculate.bind(this, "DIVIDE"));
