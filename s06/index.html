@@ -7,6 +7,31 @@
     <title>Document</title>
 
     <script src="app.js" defer></script>
+
+
+    <style>
+        .title {
+            color: blue;
+        }
+        a {
+            color: green;
+        }
+        .paragraph {
+            font-size: 20px;
+        }
+
+        .sec-first {
+            border: 1px solid #b5b5b5
+        }
+
+        .active {
+            color: red
+        }
+
+        .new-heading {
+            background-color: yellow;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,7 +54,7 @@
     
     <nav>
         <ul>
-            <li>HTML</li>
+            <li class="active">HTML</li>
             <li>CSS</li>
             <li>JavaScript</li>
             <li>VueJs</li>
@@ -42,8 +67,7 @@
         </ul>
     </nav>
 
-
-    <input type="text" name="username" id="uname" class="frm-input" value="sirvan">
+    <button id="toggle">click me</button>
 </body>
 
 </html>
