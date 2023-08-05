@@ -10,7 +10,20 @@
   <link href="css/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/app.css" />
 
-  <script src="js/app.js" defer></script> 
+  <script src="js/app.js" defer></script>
+
+  <style>
+    input[type=checkbox]:checked+label span:first-of-type {
+      background-color: #10B981;
+      border-color: #10B981;
+      color: #fff;
+    }
+
+    .line-through {
+      text-decoration: line-through;
+      color: #9CA3AF;
+    }
+  </style>
 </head>
 
 <body>
@@ -42,29 +55,7 @@
 
         <!-- list of items -->
         <div id="list-wrapper">
-
-
-          <!-- item 1 -->
-          <div class="relative">
-              <input class="hidden" type="checkbox" id="item_15154879421344">
-              <label class="flex items-center h-10 px-2 rounded cursor-pointer group hover:bg-gray-900" for="item_15154879421344">
-                <span
-                  class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full">
-                  <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                    fill="currentColor">
-                    <path fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd" />
-                  </svg>
-                </span>
-                <div class="flex items-center justify-between w-full">
-                  <p class="ml-4 text-sm">take a shower</p>
-                  <p class="text-xs text-gray-500 mt-1">7-25-2023</p>
-                </div>
-              </label>
-              <i class="absolute -right-6 cursor-pointer top-1 text-red-500 px-2 text-lg">x</i>
-          </div>
-          <!-- end of item 1 -->
+            
 
         </div>
 
