@@ -1,29 +1,22 @@
-const propName = 'isMoving';
-
-const car = {
-    name: 'دنا',
-    color: 'سفید',
-    year: 0,
-    gear: 'دستی',
-    usage: '80000km',
-    [propName]: true,
-    move: function() {
-
-    },
-    stop: function() {
-
-    },
-    status: {
-        doors: 'رنگ شده',
-        capoot: 'بی رنگ',
-        tires: 'سالم'
-    },
-    options: ['daylight', 'keyless', 'gps'],
-    fullName() {
-        return this.name + ' ' + this.color + ' ' + this.gear;
+const movie = {
+    title: 'Harray Potter',
+    actors: ['Daniel Radcliffe', 'Emma Watson', 'Rupert Grint'],
+    getCastNames() {
+        this.actors.forEach((actor) => {
+            console.log(actor + '--' + this.title);
+        })
     }
-}
-console.log(car.fullName())
+};
 
+// const movie = {
+//     title: 'Harray Potter',
+//     actors: ['Daniel Radcliffe', 'Emma Watson', 'Rupert Grint'],
+//     getCastNames() {
+//         this.actors.forEach(function (actor) {
+//             console.log(this);
+//             console.log(actor + '--' + this.title);
+//         })
+//     }
+// };
 
-
+movie.getCastNames();

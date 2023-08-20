@@ -75,6 +75,8 @@ const addNewCarHandler = () => {
     return;
   }
 
+  console.log(this);
+
   const newCar = {
     id: new Date().getTime().toString(),
     info: {
@@ -82,7 +84,6 @@ const addNewCarHandler = () => {
       [optionName]: optionValue,
     },
     fullName() {
-      console.log(this);
       return this.info.name.toUpperCase()
     }
   };
@@ -93,8 +94,11 @@ const addNewCarHandler = () => {
   renderAllCars();
 };
 
+console.log(this);
 
 const searchHandler = () => {
+
+  console.log(this);
 
   const searchParam = document.getElementById('search-input').value;
 
@@ -107,6 +111,5 @@ addCarButtonElm.addEventListener("click", toggleModal);
 cancelModalButtonElm.addEventListener("click", toggleModal);
 
 submitModalButtonElm.addEventListener("click", addNewCarHandler);
-
 
 document.getElementById('search-button').addEventListener('click', searchHandler);
