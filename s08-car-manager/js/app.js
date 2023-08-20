@@ -13,7 +13,7 @@ const cars = [];
 const resetModal = () => {
   const modalInputs = modalElm.querySelectorAll("input");
 
-  for (input of modalInputs) {
+  for (let input of modalInputs) {
     input.value = "";
   }
 };
@@ -34,13 +34,15 @@ const renderAllCars = (searchParam = null) => {
 
   filteredCars.forEach((car) => {
 
-    const { info } = car;
+    let { info, fullName } = car;
+
+    
 
     output += `
       <div>
         <div class="flex items-center h-10 px-2 rounded cursor-pointer group bg-gray-900">
           <div class="flex items-center justify-between w-full">
-            <p class="ml-4 text-sm">${info.name}</p>`;
+            <p class="ml-4 text-sm">${fullName.call(car)}</p>`;
 
 
             for (let key in info) {
@@ -79,6 +81,10 @@ const addNewCarHandler = () => {
       name,
       [optionName]: optionValue,
     },
+    fullName() {
+      console.log(this);
+      return this.info.name.toUpperCase()
+    }
   };
 
   cars.push(newCar);

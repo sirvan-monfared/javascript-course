@@ -19,11 +19,11 @@ const car = {
         tires: 'سالم'
     },
     options: ['daylight', 'keyless', 'gps'],
+    fullName() {
+        return this.name + ' ' + this.color + ' ' + this.gear;
+    }
 }
-
-if ('year' in car) {
-    alert('yess');
-}
+console.log(car.fullName())
 
 
 
