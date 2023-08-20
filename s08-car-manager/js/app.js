@@ -24,22 +24,28 @@ const toggleModal = () => {
   modalElm.classList.toggle("hidden");
 };
 
-const renderAllCars = () => {
+const renderAllCars = (searchParam = null) => {
   listUI.innerHTML = "";
 
   let output = "";
 
-  cars.forEach((car) => {
+  const filteredCars = (!searchParam) ? cars : cars.filter((car) => car.info.name.includes(searchParam));
+
+
+  filteredCars.forEach((car) => {
+
+    const { info } = car;
+
     output += `
       <div>
         <div class="flex items-center h-10 px-2 rounded cursor-pointer group bg-gray-900">
           <div class="flex items-center justify-between w-full">
-            <p class="ml-4 text-sm">${car.info.name}</p>`;
+            <p class="ml-4 text-sm">${info.name}</p>`;
 
 
-            for (let key in car.info) {
+            for (let key in info) {
                 if (key !== 'name') {
-                  output += `<p class="text-gray-500">${key}: ${car.info[key]}</p>`;
+                  output += `<p class="text-gray-500">${key}: ${info[key]}</p>`;
                 }
             }
 
@@ -81,8 +87,20 @@ const addNewCarHandler = () => {
   renderAllCars();
 };
 
+
+const searchHandler = () => {
+
+  const searchParam = document.getElementById('search-input').value;
+
+  renderAllCars(searchParam);
+
+}
+
 addCarButtonElm.addEventListener("click", toggleModal);
 
 cancelModalButtonElm.addEventListener("click", toggleModal);
 
 submitModalButtonElm.addEventListener("click", addNewCarHandler);
+
+
+document.getElementById('search-button').addEventListener('click', searchHandler);
