@@ -1,20 +1,28 @@
-const arr = [1, 10, 15, 17, 15, 10, 9, 13];
-
-// arr = new Array(1, 10, 15, 17)  Object
-
-Array.prototype.unique = function() {
-    return [...new Set(this)];
+const Car = function(model, speed) {
+    this.model = model;
+    this.speed = speed;
 }
 
-console.log(arr.__proto__.__proto__.__proto__)
+Car.prototype.accelerate = function() {
+    this.speed += 15;
+    console.log(`your ${this.model} speed is ${this.speed} km/h`);
+}
 
-console.log(arr.unique())
+Car.prototype.brake = function() {
+    this.speed -= 10;
+    console.log(`your ${this.model} speed is ${this.speed} km/h`);
+}
 
-console.log([10,15,6,6,8,9,9,14].unique())
+const dena =  new Car('Dena', 120);
+const bmw = new Car('bmw', 150);
 
-const obj = { name: 'sirvan'};
-// const obj = new Object()   obj.name = 'sirvn'  Object.prototype == obj.__proto__
+dena.accelerate();
+dena.accelerate();
+dena.accelerate();
+dena.brake();
+dena.accelerate();
 
-const h1 = document.querySelector('h1');
 
-console.dir(x => x + 1)
+bmw.accelerate();
+bmw.brake();
+bmw.accelerate();
