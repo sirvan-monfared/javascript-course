@@ -13,8 +13,15 @@
 //     console.log(`your ${this.model} speed is ${this.speed} km/h`);
 // }
 
+// Car.goToParking = function() {
+//     console.log('heyyy');
+// }
+
 // const dena =  new Car('Dena', 120);
 // const bmw = new Car('bmw', 150);
+
+// Car.goToParking()
+// dena.goToParking();
 
 // dena.accelerate();
 // dena.accelerate();
@@ -23,9 +30,9 @@
 // dena.accelerate();
 
 
-// const Person2 = class {
-    
-// }
+
+
+
 
 class Person {
     constructor(name, lastName, age) {
@@ -34,12 +41,18 @@ class Person {
         this.age = age;
     }
 
+    // instance methods
     fullName() {
         return `your name is ${this.name} ${this.lastName} and your age is ${this.age}`;
     }
 
     sayHello() {
         alert(this.fullName())
+    }
+
+    // static methods
+    static goToParking() {
+        console.log('heyyy');
     }
 }
 
@@ -52,4 +65,6 @@ console.log(sirvan.__proto__ === Person.prototype);
 
 console.log(sirvan.fullName());
 
-// sirvan.sayHello();
+Person.goToParking()
+
+sirvan.goToParking();
