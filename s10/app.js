@@ -1,73 +1,125 @@
-// class User {
-//     constructor(name, lastName, age) {
-//         this.name = name;
-//         this.lastName = lastName;
-//         this.age = age;
+/* ----------------------------- 
+        4 Pillars of OOP
+------------------------------*/
 
-//         if (this.constructor.name === 'User') {
-//             this.login();
-//         }
-//     }
+/* 1- Abstraction */
+class Car {
+    color;
+    model;
+    gear;
+    oil;
+    gas;
+    material;
+    gearMaterial;
+    TiresElasticity;
+    brakePercision;
 
-//     login() {
-//         console.log(`${this.name} ${this.lastName} is logged in`);
-//     }
+    start() {}
+    accelerate() {}
+    brake() {}
 
-//     logout() {
-//         console.log(`${this.name} ${this.lastName} is logged out`);
-//     }
-// }
-
-
-// class Admin extends User {
-//     constructor(name, lastName, age, permission) {
-//         super(name, lastName, age);
-
-//         this.permission = permission;
-//         this.login();
-//     }
-
-//     login() {
-//         console.log(`hey admin. welcome ${this.permission}`);
-//     }
-
-//     deleteUser() {
-//         console.log('deleting...')
-//     }
-// }
-
-// const sirvan = new User('sirvan', 'monfared', 25);
-
-// const jack = new Admin('jack', 'milano', 32, 'SuperAdmin');
-
-const User = function(name, lastName, age) {
-    this.name = name;
-    this.lastName = lastName;
-    this.age = age;
+    igniteEngine() {}
+    pumpOil() {}
+    pumpGas() {}
+    moveTires() {}
+    Radiator() {}
+    ControlWaterHeat() {}
 }
 
-User.prototype.login = function() {
-    console.log(`${this.name} ${this.lastName} is logged in`);
+class Car {
+    color;
+    model;
+    gear;
+
+    start() {}
+    accelerate() {}
+    brake() {}
 }
 
-const nima = new User('nima', 'maleki', 18);
+GamepadButton.addEventListener('click', someFunction);
 
-const Admin = function(name, lastName, age, permission) {
-    User.call(this, name, lastName, age);
-    this.permission = permission;
+
+
+/* 2- Encapsulation */
+// Public Interface (API)
+// Internal Properties and methods (private)
+
+// note that theses syntaxes are not supported in javascript and this is just a contexual Example for OOP Concept
+class BankAccount {
+    accountCode;
+    private accountPassword;
+    movements;
+
+    login(userInput) {
+        return this.accountPassword === userInput;
+    }
+
+    deposite(value) {
+        this.movements.push(value);
+    }
+
+    withdraw(value) {
+        this.deposite(-value);
+    }
+
+    private hasEnoughCredit() {
+        // some calculation to check if user has enough credits for a loan
+        return (someCondition) ? true : false;
+    }
+
+    getLoan(amount)  {
+        if (this.hasEnoughCredit()) {
+            this.deposite(amount);
+            return true;
+        }
+
+        return false;
+    }
+}
+new BankAccount().getLoan(10000000)
+
+new BankAccount().accountPassword = 454544
+
+/* 3- Inheritance */
+class User {
+    name;
+    lastName;
+
+    login() {}
+    logout() {}
 }
 
-Admin.prototype = Object.create(User.prototype);
+class Admin extends User {
+    permission;
 
-Admin.prototype.deleteUser = function() {
-    console.log(`${this.name} with ${this.permission} is deleting a user ...`); 
+    deleteUser() {}
 }
 
-const sirvan = new Admin('sirvan', 'monfared', 25, 'Super Admin');
-sirvan.login();
 
 
-console.log(sirvan instanceof Admin);
-console.log(sirvan instanceof User);
-console.log(sirvan instanceof Object);
+/* 4- PolyMorphism */
+class User {
+    name;
+    lastName;
+
+    login() {
+        console.log(`hey ${name}`);
+    }
+    logout() {}
+}
+
+class Admin extends User {
+    permission;
+
+    deleteUser() {}
+    login() {
+        console.log(`hello sir! ${name} ${lastName}. welcome to your panel`);
+    }
+}
+
+class Author extends User {
+    login() {
+        alert('la la la')
+    }
+}
 
