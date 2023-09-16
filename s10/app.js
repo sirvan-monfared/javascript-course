@@ -19,10 +19,12 @@ class BankAccount {
 
     deposite(value) {
         this.#transactions.push(value);
+
+        return this;
     }
 
     withdraw(value) {
-        this.deposite(-value);
+        return this.deposite(-value);
     }
 
     #hasEnoughCredit() {
@@ -34,6 +36,7 @@ class BankAccount {
     getLoan(amount)  {
         if (this.#hasEnoughCredit()) {
             this.deposite(amount);
+
             return true;
         }
 
@@ -42,3 +45,4 @@ class BankAccount {
 }
 
 const account = new BankAccount('sirvan monfared', 'RIAL');
+console.log(account.deposite(1000).deposite(5564).withdraw(100).withdraw(100).getLoan(454654654))
