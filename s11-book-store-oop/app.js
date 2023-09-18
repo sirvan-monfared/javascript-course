@@ -1,20 +1,6 @@
 const modalElm = document.getElementById('modal');
 
-const removeFromCartHandler = (id) => {
-    if (! cartItems.has(id)) {
-        return;
-    }
-    
-    cartItems.delete(id);
 
-    document.getElementById(`cart-item-${id}`).remove();
-
-    updateCartTotal();
-
-    removeEmptyCartItem();
-
-    updateCartNotification();
-}
 
 
 const hideModal = () => {

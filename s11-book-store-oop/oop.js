@@ -95,13 +95,17 @@ class CartItem {
         return App.getBookList().find(id);
     }
 
+    htmlElementId() {
+        return `cart-item-${this.id}`;
+    }
+
     render(id) {
 
         const book = this.findBook(id);
 
         const newCartItem = document.createElement("li");
         newCartItem.className = "flex items-center justify-between gap-4 truncate h-14";
-        newCartItem.id = `cart-item-${book.id}`;
+        newCartItem.id = this.htmlElementId();
         newCartItem.innerHTML = `
             <div class="w-10" style="flex-shrink: 0">
                 <img class=" h-14 rounded-md" src="${book.imageUrl}">
@@ -133,6 +137,11 @@ class CartItem {
     decreaseQuantity() {
         this.quantity--;
 
+        if (this.quantity < 1) {
+            App.getCart().remove(this.id);
+            return;
+        }
+
         this.updateQuantityUI();
 
         App.getCart().updateCartTotal();
@@ -147,7 +156,7 @@ class CartItem {
     }
 
     updateQuantityUI() {
-        const cartItemElm = document.getElementById(`cart-item-${this.id}`);
+        const cartItemElm = document.getElementById(this.htmlElementId());
         cartItemElm.querySelector('.quantity').innerText = this.quantity;
     }
 
@@ -185,6 +194,22 @@ class Cart {
 
         this.updateCartTotal();
         this.updateCartNotification();
+    }
+
+    remove(id) {
+        if (! this.has(id)) {
+            return;
+        }
+
+        const index = this.items.findIndex(item => item.id === id);
+
+        document.getElementById(this.items[index].htmlElementId()).remove();
+
+        this.items.splice(index, 1);
+
+        this.updateCartTotal();
+        this.updateCartNotification();
+        this.removeEmptyCartBox();
     }
 
     updateCartTotal() {
