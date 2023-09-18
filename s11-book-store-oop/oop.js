@@ -61,8 +61,7 @@ class Book {
     }
 
     addToCartHandler() {
-        console.log(this);
-        new Cart().add(this.id);
+        App.getCart().add(this.id);
     }
 }
 
@@ -80,23 +79,148 @@ class BookList {
 
         this.listUI.append(newBook.render());
     }
+
+    find(id) {
+        return this.books.find(item => item.id === id);
+    }
+}
+
+class CartItem {
+    constructor(id, quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+
+    findBook(id) {
+        return App.getBookList().find(id);
+    }
+
+    render(id) {
+
+        const book = this.findBook(id);
+
+        const newCartItem = document.createElement("li");
+        newCartItem.className = "flex items-center justify-between gap-4 truncate h-14";
+        newCartItem.id = `cart-item-${book.id}`;
+        newCartItem.innerHTML = `
+            <div class="w-10" style="flex-shrink: 0">
+                <img class=" h-14 rounded-md" src="${book.imageUrl}">
+            </div>
+            <div class="flex flex-col justify-between items-start h-full">
+                <p class="truncate">${book.title}</p>
+
+                <div class="flex items-center justift-start w-full">
+                    <p class="font-semibold">$${book.price}</p>
+
+                    <div class="flex items-center px-5 gap-2">
+                        <span class="quantity-decrease bg-blue-500 text-white rounded-md py-1 px-2 cursor-pointer text-sm">-</span>
+                        <span class="quantity">1</span>
+                        <span class="quantity-increase bg-blue-500 text-white rounded-md py-1 px-2 cursor-pointer text-sm">+</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        newCartItem.querySelector('.quantity-decrease').addEventListener('click', this.decreaseQuantity.bind(this))
+
+        newCartItem.querySelector('.quantity-increase').addEventListener('click', this.increaseQuantity.bind(this))
+
+
+
+        return newCartItem;
+    }
+
+    decreaseQuantity() {
+        this.quantity--;
+
+        this.updateQuantityUI();
+
+        App.getCart().updateCartTotal();
+    }
+
+    increaseQuantity() {
+        this.quantity++;
+
+        this.updateQuantityUI();
+
+        App.getCart().updateCartTotal();
+    }
+
+    updateQuantityUI() {
+        const cartItemElm = document.getElementById(`cart-item-${this.id}`);
+        cartItemElm.querySelector('.quantity').innerText = this.quantity;
+    }
+
 }
 
 class Cart {
     constructor() {
         this.items = [];
+
+        this.cartEmptyElm = document.getElementById('empty-cart');
+        this.cartItemsListElm = document.getElementById('cart-items-list');
+        this.cartTotalElm = document.getElementById('cart-total');
+        this.cartNotification = document.getElementById('cart-notification');
+    }
+
+    has(id) {
+        return this.items.find(item => item.id === id);
     }
 
     add(id) {
-        console.log(id);
-        this.items.push(id);
-        console.log(this.items);
+
+        if (this.has(id)) {
+            return;
+        }
+
+        const cartItem = new CartItem(id, 1);
+
+        this.items.push(cartItem);
+
+        this.removeEmptyCartBox();
+
+        const cartItemElm = cartItem.render(id);
+
+        this.cartItemsListElm.firstElementChild.append(cartItemElm);
+
+        this.updateCartTotal();
+        this.updateCartNotification();
+    }
+
+    updateCartTotal() {
+        const totalPrice = this.items.reduce((prevValue, cartItem) => {
+            return prevValue + (App.getBookList().find(cartItem.id).price * cartItem.quantity)
+        }, 0);
+    
+        this.cartTotalElm.innerText = `$${totalPrice}`;
+    }
+
+    updateCartNotification() {
+        this.cartNotification.innerText = this.items.length;
+
+        if (this.items.length) {
+            this.cartNotification.classList.remove('hidden');
+        } else {
+            this.cartNotification.classList.add('hidden');
+        }
+    }
+
+    removeEmptyCartBox() {
+        if (! this.items.length) {
+            this.cartEmptyElm.classList.remove('hidden');
+            this.cartItemsListElm.classList.add('hidden');
+       } else {
+            this.cartEmptyElm.classList.add('hidden');
+            this.cartItemsListElm.classList.remove('hidden');
+       }
     }
 }
 
-class App {
+class Shop {
     constructor() {
         this.bookList = new BookList();
+        this.cart = new Cart();
+
 
         this.handleUiInteractions();
         this.generateDemoBooks();
@@ -177,4 +301,18 @@ class App {
 }
 
 
-const app = new App();
+class App {
+    static init() {
+        this.shop = new Shop();
+    }
+
+    static getCart() {
+        return this.shop.cart;
+    }
+
+    static getBookList() {
+        return this.shop.bookList;
+    }
+}
+
+App.init();
