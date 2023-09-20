@@ -1,5 +1,5 @@
 class Book {
-    constructor(title, author, prevPrice, price, imageUrl, description) {
+    constructor(title, author,price, prevPrice, imageUrl, description) {
         this.id = Math.ceil(new Date().getTime().toString() * Math.random())
         this.title = title;
         this.author = author;
@@ -45,7 +45,7 @@ class Book {
 
         viewDetailsButton.addEventListener(
             "click",
-            this.viewDetailsHandler
+            this.viewDetailsHandler.bind(this)
         );
         
         addToCartButton.addEventListener(
@@ -57,7 +57,7 @@ class Book {
     }
 
     viewDetailsHandler() {
-        console.log('view details');
+        App.getModal().open(this.id);
     }
 
     addToCartHandler() {
@@ -241,10 +241,42 @@ class Cart {
     }
 }
 
+class Modal {
+    constructor() {
+        this.modal = document.getElementById('modal');
+        this.modal.querySelector('#modal-close').addEventListener('click', this.close.bind(this));
+    }
+
+    open(bookId) {
+        this.modal.classList.remove('hidden');
+
+        const foundBook = App.getBookList().find(bookId);
+
+        const modalContentElm = this.modal.querySelector('#modal-content');
+
+        modalContentElm.querySelector('img').src = foundBook.imageUrl;
+        modalContentElm.querySelector('h2').innerText = foundBook.title;
+        modalContentElm.querySelector('p').innerText = `By: ${foundBook.author}`;
+        modalContentElm.querySelector('.book-description').innerText = foundBook.description;
+        modalContentElm.querySelector('.book-price').innerHTML = foundBook.showPrice();
+        modalContentElm.querySelector('.modal-add-to-cart').addEventListener('click', foundBook.addToCartHandler.bind(foundBook));
+    }
+
+    close() {
+        this.modal.classList.add('hidden');
+
+        const newButton = this.modal.querySelector('.modal-add-to-cart').cloneNode(true);
+        this.modal.querySelector('.modal-add-to-cart').remove();
+
+        this.modal.querySelector('.book-price').before(newButton);
+    }
+}
+
 class Shop {
     constructor() {
         this.bookList = new BookList();
         this.cart = new Cart();
+        this.modal = new Modal();
 
 
         this.handleUiInteractions();
@@ -337,6 +369,10 @@ class App {
 
     static getBookList() {
         return this.shop.bookList;
+    }
+
+    static getModal() {
+        return this.shop.modal;
     }
 }
 
