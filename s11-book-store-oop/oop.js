@@ -172,13 +172,19 @@ class Cart {
         this.cartNotification = document.getElementById('cart-notification');
     }
 
-    has(id) {
+    findItem(id) {
         return this.items.find(item => item.id === id);
+    }
+
+    has(id) {
+        return !! this.findItem(id);
     }
 
     add(id) {
 
         if (this.has(id)) {
+            this.findItem(id).increaseQuantity();
+
             return;
         }
 
@@ -194,6 +200,8 @@ class Cart {
 
         this.updateCartTotal();
         this.updateCartNotification();
+
+        new Toast('Product added to your cart').success();
     }
 
     remove(id) {
@@ -210,6 +218,8 @@ class Cart {
         this.updateCartTotal();
         this.updateCartNotification();
         this.removeEmptyCartBox();
+
+        new Toast('Product removed from your cart').danger();
     }
 
     updateCartTotal() {
@@ -269,6 +279,46 @@ class Modal {
         this.modal.querySelector('.modal-add-to-cart').remove();
 
         this.modal.querySelector('.book-price').before(newButton);
+    }
+}
+
+class Toast {
+    _text;
+    _errorBag;
+    _toastElm;
+
+    constructor(text) {
+        this._text = text;
+        this._errorBag = document.getElementById('error-bg');
+
+        this._createElement();
+    }
+
+    _createElement() {
+        this._toastElm =  document.createElement('div');
+        this._toastElm.className = 'text-white p-3 shadow-lg rounded-md';
+        this._toastElm.textContent = this._text;
+    }
+
+    success() {
+        this._toastElm.classList.add('bg-green-500');
+
+        this._errorBag.append(this._toastElm);
+
+        this._remove();
+    }
+
+    danger() {
+        this._toastElm.classList.add('bg-red-500');
+        this._errorBag.append(this._toastElm);
+
+        this._remove();
+    }
+
+    _remove() {
+         setTimeout(() => {
+            this._toastElm.remove()
+         }, 3000);
     }
 }
 
