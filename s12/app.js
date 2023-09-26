@@ -1,20 +1,20 @@
+function sayHello() {
+    console.log('heyyy');
+}
 
-const setBtn = document.getElementById('set');
-const getBtn = document.getElementById('get');
+console.log('asfsafsa');
 
-setBtn.addEventListener('click', () => {
-    const userId = 34253253;
-    const user = {name: 'sirvan', age: 25};
-    document.cookie = `uuid=${userId}`;
-    document.cookie = `user=${JSON.stringify(user)};max-age=3`;
-})
+const tme = setTimeout(sayHello, 3000);
 
-getBtn.addEventListener('click', () => {
-    const cookieData = document.cookie.split(";");
-    const data = cookieData.map(i => {
-        return i.trim();
-    }) 
+console.log('after setTimeout');
 
-    const index = data.findIndex(item => item.includes('user='));
-    console.log(JSON.parse(data[index].split("=")[1]));
+const intval = setInterval(() => {
+    console.log('called');
+}, 2000, [])
+
+const buttonElm = document.getElementById('stop');
+
+buttonElm.addEventListener('click', () => {
+    // clearInterval(intval);
+    clearTimeout(intval);
 })

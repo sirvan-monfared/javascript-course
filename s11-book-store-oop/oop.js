@@ -11,10 +11,10 @@ class Book {
 
     showPrice() {
         if (!this.prevPrice) {
-            return `<span>$${this.price}</span>`;
+            return `<span>\$${this.price}</span>`;
         }
 
-        return `<span class="line-through text-red-500">$${this.prevPrice}</span> <span>$${this.price}</span>`;
+        return `<span class="line-through text-red-500">$${this.prevPrice}</span> <span>\$${this.price}</span>`;
     }
 
     render() {
