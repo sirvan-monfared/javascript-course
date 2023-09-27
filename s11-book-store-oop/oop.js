@@ -1,6 +1,6 @@
 class Book {
-    constructor(title, author,price, prevPrice, imageUrl, description) {
-        this.id = Math.ceil(new Date().getTime().toString() * Math.random())
+    constructor(id, title, author,price, prevPrice, imageUrl, description) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.prevPrice = prevPrice;
@@ -72,8 +72,8 @@ class BookList {
         this.listUI = document.getElementById("list-wrapper");
     }
 
-    add(title, author, prevPrice, price, description, imageUrl) {
-        const newBook = new Book(title, author, prevPrice, price, imageUrl, description);
+    add(id, title, author, prevPrice, price, description, imageUrl) {
+        const newBook = new Book(id, title, author, prevPrice, price, imageUrl, description);
 
         this.books.push(newBook);
 
@@ -100,8 +100,13 @@ class CartItem {
     }
 
     render(id) {
+        console.log(id);
+
+        console.log(App.getBookList().books);
 
         const book = this.findBook(id);
+
+        console.log(book);
 
         const newCartItem = document.createElement("li");
         newCartItem.className = "flex items-center justify-between gap-4 truncate h-14";
@@ -118,7 +123,7 @@ class CartItem {
 
                     <div class="flex items-center px-5 gap-2">
                         <span class="quantity-decrease bg-blue-500 text-white rounded-md py-1 px-2 cursor-pointer text-sm">-</span>
-                        <span class="quantity">1</span>
+                        <span class="quantity">${this.quantity}</span>
                         <span class="quantity-increase bg-blue-500 text-white rounded-md py-1 px-2 cursor-pointer text-sm">+</span>
                     </div>
                 </div>
@@ -145,6 +150,7 @@ class CartItem {
         this.updateQuantityUI();
 
         App.getCart().updateCartTotal();
+        App.getCart().updateStorage();
     }
 
     increaseQuantity() {
@@ -153,6 +159,7 @@ class CartItem {
         this.updateQuantityUI();
 
         App.getCart().updateCartTotal();
+        App.getCart().updateStorage();
     }
 
     updateQuantityUI() {
@@ -180,7 +187,7 @@ class Cart {
         return !! this.findItem(id);
     }
 
-    add(id) {
+    add(id, quantity = 1) {
 
         if (this.has(id)) {
             this.findItem(id).increaseQuantity();
@@ -188,7 +195,7 @@ class Cart {
             return;
         }
 
-        const cartItem = new CartItem(id, 1);
+        const cartItem = new CartItem(id, quantity);
 
         this.items.push(cartItem);
 
@@ -200,6 +207,7 @@ class Cart {
 
         this.updateCartTotal();
         this.updateCartNotification();
+        this.updateStorage();
 
         new Toast('Product added to your cart').success();
     }
@@ -218,6 +226,8 @@ class Cart {
         this.updateCartTotal();
         this.updateCartNotification();
         this.removeEmptyCartBox();
+        this.updateStorage();
+
 
         new Toast('Product removed from your cart').danger();
     }
@@ -248,6 +258,24 @@ class Cart {
             this.cartEmptyElm.classList.add('hidden');
             this.cartItemsListElm.classList.remove('hidden');
        }
+    }
+
+    updateStorage() {
+        localStorage.setItem('larabook-cart', JSON.stringify(this.items));
+    }
+
+    populateFromStorage() {
+        const items = localStorage.getItem('larabook-cart');
+
+        if (! items) return;
+
+
+        const parsedItems = JSON.parse(localStorage.getItem('larabook-cart'));
+        parsedItems.forEach(item => {
+            this.add(item.id, item.quantity);
+        })
+
+        console.log(this.items);
     }
 }
 
@@ -343,6 +371,7 @@ class Shop {
 
     generateDemoBooks() {
         this.bookList.add(
+            "UU-yj54huyt5r8fu5yoi",
             "Harry Potter and the Philosophers Stone",
             "J. K. Rowling",
             60,
@@ -352,6 +381,7 @@ class Shop {
           );
         
           this.bookList.add(
+            "UU-54y0irgyk54u670ijpgofk",
             "Harry Potter and the Chamber of Secrets",
             "J. K. Rowling",
             55,
@@ -361,6 +391,7 @@ class Shop {
           );
         
           this.bookList.add(
+            "UU-0ifjkg54j0yu09",
             "Harry Potter and the Prisoner of Azkaban",
             "J. K. Rowling",
             65,
@@ -370,6 +401,7 @@ class Shop {
           );
         
           this.bookList.add(
+            "UU-UJRUIEkdgjr5ygreju84y",
             "Harry Potter and the Goblet of Fire",
             "J. K. Rowling",
             70,
@@ -378,6 +410,7 @@ class Shop {
             "images/810jKiNChxL._AC_UF894,1000_QL80_.jpg"
           );
           this.bookList.add(
+            "UU-3278ryfdkgj54jGSf",
             "Harry Potter and the Order of the Phoenix",
             "J. K. Rowling",
             80,
@@ -386,6 +419,7 @@ class Shop {
             "images/81a4yXpXjnL._AC_UF1000,1000_QL80_.jpg"
           );
           this.bookList.add(
+            "UU-4t0slfgkjHYGUrffk7",
             "Harry Potter and the Half-Blood Prince",
             "J. K. Rowling",
             80,
@@ -395,6 +429,7 @@ class Shop {
             "images/81p2+4nYtkL._AC_UF894,1000_QL80_.jpg"
           );
           this.bookList.add(
+            "UU-giHYTEEG43ypzCkdog",
             "Harry Potter and the Deathly Hallows",
             "J. K. Rowling",
             80,
@@ -411,6 +446,8 @@ class Shop {
 class App {
     static init() {
         this.shop = new Shop();
+
+        this.shop.cart.populateFromStorage();
     }
 
     static getCart() {
