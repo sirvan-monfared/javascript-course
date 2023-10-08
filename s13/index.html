@@ -4,25 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>s13 - Events | Laraplus.ir</title>
-    <script src="app.js" defer></script>
+    <title>Custom Tooltip Generator</title>
 
     <style>
-        #number {
-            font-size: 50px;
-            color: red;
+        .tooltip-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .tooltip-trigger {
+            margin: 0 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .tooltip {
+            position: absolute;
+            display: none;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
         }
     </style>
 </head>
 
 <body>
-    <section>
-            <div id="number">
-                0
-            </div>
-        </div>
-    </section>
+    <div class="tooltip-container">
+        <button class="tooltip-trigger" data-tooltip="This is a tooltip">Hover Me</button>
+        <button class="tooltip-trigger" data-tooltip="Another tooltip">Hover Me Too</button>
+        <button class="tooltip-trigger" data-tooltip="and heres my tooltip text">I'm third one</button>
+    </div>
+    
+    <div class="tooltip" id="tooltip"></div>
 
+    <script src="app.js"></script>
 </body>
 
 </html>
