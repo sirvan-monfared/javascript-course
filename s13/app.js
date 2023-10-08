@@ -1,31 +1,21 @@
-const ul = document.querySelector('ul');
-const form = document.querySelector('form');
-const btn = document.querySelector('button');
+const numberElm = document.getElementById('number');
 
+numberElm.addEventListener('changeNumber', (event) => {
+    console.log('triggered');
+    console.log(event);
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    console.log('submitted');
-    /// validating inputs
+    event.target.textContent = event.detail.number;
+    event.target.style.color = event.detail.color;
 })
 
-btn.addEventListener('click', function(event) {
-    console.log(event.target === this);
+function change(color, number) {
+    const event = new CustomEvent('changeNumber', {
+        bubbles: true,
+        detail: {
+            color: color,
+            number: number
+        }
+    });
 
-    console.log('clicked');
-})
-
-
-
-// liItems.forEach(item => {
-//     item.addEventListener('click', event => {
-//         event.target.classList.toggle('active');
-//     })
-// })
-
-ul.addEventListener('click', function(event) {
-
-    console.log(this === event.currentTarget)
-    event.target.closest('li').classList.toggle('active');
-})
+    numberElm.dispatchEvent(event);
+}
