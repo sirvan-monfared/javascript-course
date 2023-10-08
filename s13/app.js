@@ -1,20 +1,31 @@
+const ul = document.querySelector('ul');
+const form = document.querySelector('form');
 const btn = document.querySelector('button');
-const wrapper = document.getElementById('wrapper');
-const section = document.querySelector('section');
 
-btn.addEventListener('click', event => {
-    event.stopPropagation();
 
-    console.log('clicked the BUTTON');
-    console.log(event);
-})
-// wrapper.addEventListener('click', event => {
-//     console.log('clicked the DIV -- captured');
-//     console.log(event);
-// }, true)
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-wrapper.addEventListener('click', event => {
-    console.log('clicked the DIV -- bubbled');
-    console.log(event);
+    console.log('submitted');
+    /// validating inputs
 })
 
+btn.addEventListener('click', function(event) {
+    console.log(event.target === this);
+
+    console.log('clicked');
+})
+
+
+
+// liItems.forEach(item => {
+//     item.addEventListener('click', event => {
+//         event.target.classList.toggle('active');
+//     })
+// })
+
+ul.addEventListener('click', function(event) {
+
+    console.log(this === event.currentTarget)
+    event.target.closest('li').classList.toggle('active');
+})
