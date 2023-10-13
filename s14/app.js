@@ -1,45 +1,63 @@
+
+const requestCar = () => {
+   return new Promise((resolve, reject) => {
+        const random = Math.random();
+        if (random > 0.7) {
+            resolve("YOU WON! " + random);
+        } else {
+            reject("YOU LOST! " + random);
+        }
+    })
+}
+
+const timer = (seconds) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, seconds * 1000);
+    })
+}
+
 const getLocation = () => {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
 
-getLocation()
-.then((position) => console.log(position))
-.catch((error) => console.log(error));
+const doSomStuff = async () => {
 
+        try {
+            await timer(3);
+            const data = await requestCar();
+            console.log(data);
+            await timer(2);
+            const position = await getLocation();
+        } catch(error) {
+            console.log('an error accoured')
+            console.log(error);
+        }
 
+        console.log('function finished...')
 
+        
 
-// const requestCar = () => {
-//    return new Promise((resolve, reject) => {
-//         const random = Math.random();
-//         if (random > 0.7) {
-//             resolve("YOU WON! " + random);
-//         } else {
-//             reject("YOU LOST! " + random);
-//         }
-//     })
-// }
+        // timer(3)
+        // .then(() => {
+        //     return requestCar();
+        // })
+        // .then((data) => {
+        //     console.log(data);
+        //     console.log('wait again...');
+        //     return timer(2);
+        // })
+        // .then(() => {
+        //     console.log('getting your location..');
+        //     return getLocation();
+        // })
+        // .then((data) => console.log(data))
+        // .catch(error => console.log(error));
+}
 
-// const timer = (seconds) => {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve();
-//         }, seconds * 1000);
-//     })
-// }
-
-// let message;
-// requestCar()
-// .then((data) => {
-//     console.log('wait ...')
-//     message = data;
-//     return timer(2);
-// })
-// .then(() => {
-//     console.log(message);
-// })
-// .catch((error) => console.log('noo', error));
+doSomStuff()
 
 
