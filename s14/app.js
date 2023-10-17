@@ -2,7 +2,7 @@
 const requestCar = () => {
    return new Promise((resolve, reject) => {
         const random = Math.random();
-        if (random > 0.7) {
+        if (random > 0.8) {
             resolve("YOU WON! " + random);
         } else {
             reject("YOU LOST! " + random);
@@ -13,7 +13,7 @@ const requestCar = () => {
 const timer = (seconds) => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve();
+            resolve('done!');
         }, seconds * 1000);
     })
 }
@@ -25,39 +25,17 @@ const getLocation = () => {
 }
 
 const doSomStuff = async () => {
+    try {
+        await timer(3);
+        const data = await requestCar();
+        await timer(2);
+        const position = await getLocation();
+    } catch(error) {
+        console.log(error);
+    }
 
-        try {
-            await timer(3);
-            const data = await requestCar();
-            console.log(data);
-            await timer(2);
-            const position = await getLocation();
-        } catch(error) {
-            console.log('an error accoured')
-            console.log(error);
-        }
-
-        console.log('function finished...')
-
-        
-
-        // timer(3)
-        // .then(() => {
-        //     return requestCar();
-        // })
-        // .then((data) => {
-        //     console.log(data);
-        //     console.log('wait again...');
-        //     return timer(2);
-        // })
-        // .then(() => {
-        //     console.log('getting your location..');
-        //     return getLocation();
-        // })
-        // .then((data) => console.log(data))
-        // .catch(error => console.log(error));
+    console.log('finished....')
 }
 
-doSomStuff()
 
 
