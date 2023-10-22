@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laraplus Movies - Where Dreams come True</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/images/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="assets/images/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="assets/images/logo.ico">
+
+    <!-- css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/icofont.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <div class="container">
+                <a class="navbar-brand" href="index-2.html">
+                    <img src="assets/images/laraplus-logo.svg" class="img-fluid logo" alt="Logo">
+                    <span class="slogan">Laraplus LMDB</span>
+                </a>
+
+                <div class="btns-header-group d-sm-flex d-lg-none">
+                    <span data-bs-toggle="modal" data-bs-target="#login-modal">
+                        <a class="auth-btn me-3" data-bs-toggle="tooltip" title="Login / Register"
+                            href="javascript:void(0)">
+                            <i class="icofont-ui-user"></i>
+                        </a>
+                    </span>
+
+                    <a class="me-3 search-btn-header" data-bs-toggle="tooltip" title="Search" href="#">
+                        <i class="icofont-search"></i>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                        <i class="icofont-navigation-menu"></i>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav flex-md-wrap main-menu m-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Celebrities</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav d-none d-lg-flex me-left">
+                        <li class="nav-item">
+                            <a class="me-3 search-btn-header" data-bs-toggle="tooltip" title="Search"
+                                href="javascript:void(0)">
+                                <i class="icofont-search"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <span data-bs-toggle="modal" data-bs-target="#login-modal">
+                                <a class="auth-btn" data-bs-toggle="tooltip" title="Login / Register"
+                                    href="javascript:void(0)">
+                                    <i class="icofont-ui-user"></i>
+                                </a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="all-media">
+
+        <div class="top-media-header"></div>
+        <div class="container mt--45">
+            <div class="filter-group flex-column flex-lg-row" id="filter-form">
+                <div class="home-adv-filter row m-0 mb-3 mb-lg-0">
+                    <!-- Start advanced filter -->
+                    <div class="col-12">
+                        <h6 class="text-white mb-3 d-flex justify-btween">
+                            <div>
+                                <i class="icofont-filter"></i>
+                                Advanced Filter
+                            </div>
+                            <button class="btn btn-warning btn-sm" data-clears-filter>
+                                <span>Clear</span>
+                            </button>
+                        </h6>
+                    </div>
+
+                    <div class="dropdown col-6 col-md-3 mb-3 mb-lg-0">
+                        <label for="filter-genres" class="text-white" class="filter-field">
+                            <span>Categories:</span>
+                            <select name="with_genres" id="filter-genres" class="btn btn-sm btn-filter dropdown-toggle">
+                                <option value="">All Categories</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="dropdown col-6 col-md-3 mb-3 mb-lg-0">
+                        <label for="filter-years" class="text-white" class="filter-field">
+                            <span>Years:</span>
+                            <select name="year" id="filter-years" class="btn btn-sm btn-filter dropdown-toggle">
+                                <option value="">All Years</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="dropdown col-6 col-md-3 mb-3 mb-lg-0">
+                        <label for="filter-sort" class="text-white" class="filter-field">
+                            <span>Sort By:</span>
+                            <select name="sort_by" id="filter-sort" class="btn btn-sm btn-filter dropdown-toggle">
+                                <option value="">Default</option>
+                                <option value="popularity.asc">Popularity ASC</option>
+                                <option value="popularity.desc">Popularity DESC</option>
+                                <option value="primary_release_date.asc">Release Date ASC</option>
+                                <option value="primary_release_date.desc">Release Date DESC</option>
+                                <option value="vote_average.asc">Rating ASC</option>
+                                <option value="vote_average.desc">Rating DESC</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="dropdown col-6 col-md-3 mb-3 mb-lg-0">
+                        <label for="filter-ratings" class="text-white" class="filter-field">
+                            <span>Ratings:</span>
+                            <select name="vote_average.gte" id="filter-ratings"
+                                class="btn btn-sm btn-filter dropdown-toggle">
+                                <option value="">All ratings</option>
+                                <option value="5">5+</option>
+                                <option value="6">6+</option>
+                                <option value="7">7+</option>
+                                <option value="8">8+</option>
+                                <option value="9">9+</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                
+                <ul class="tabs-filter nice-scroll">
+                    <div class="col-12">
+                        <h6 class="text-white mb-3">
+                            <i class="icofont-filter"></i>
+                            Search by Keyword
+                        </h6>
+                    </div>
+                    <div class="col-12 mb-3 mb-lg-0">
+                        <label for="keyword-search" class="text-white w-full">
+                            <span>&nbsp;</span>
+                            <input type="text" name="query" id="keyword-search" class="form-control search-input" placeholder="Search......">
+                        </label>
+                    </div>
+                </ul>
+                <div class="separator"></div>
+            </div>
+        </div>
+
+        <div class="container-fluid mt-2">
+            <!-- Loading -->
+            <div id="loading" class="hidden">
+                <svg style="stroke: white" width="500" height="500" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .spinner_Uvk8 {
+                            animation: spinner_otJF 1.6s cubic-bezier(.52, .6, .25, .99) infinite
+                        }
+
+                        .spinner_ypeD {
+                            animation-delay: .2s
+                        }
+
+                        .spinner_y0Rj {
+                            animation-delay: .4s
+                        }
+
+                        @keyframes spinner_otJF {
+                            0% {
+                                transform: translate(12px, 12px) scale(0);
+                                opacity: 1
+                            }
+
+                            75%,
+                            100% {
+                                transform: translate(0, 0) scale(1);
+                                opacity: 0
+                            }
+                        }
+                    </style>
+                    <path class="spinner_Uvk8"
+                        d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z"
+                        transform="translate(12, 12) scale(0)" />
+                    <path class="spinner_Uvk8 spinner_ypeD"
+                        d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z"
+                        transform="translate(12, 12) scale(0)" />
+                    <path class="spinner_Uvk8 spinner_y0Rj"
+                        d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z"
+                        transform="translate(12, 12) scale(0)" />
+                </svg>
+            </div>
+
+            <!-- Movies List -->
+            <div class="row row-cols-2 row-cols-sm-4 row-cols-lg-5" id="movies-list">
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="copy-right pt-4 pb-4">
+            <div class="container">
+                <div class="text-center">
+                    <p>Copyright © <a href="https://laraplus.ir/course/javascript-mastery-from-zero-to-hero">Laraplus.ir</a> - 2023</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal login-modal" id="login-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <button type="button" class="modal-right-close" data-bs-dismiss="modal">
+                        <i class="icofont-close"></i>
+                    </button>
+
+                    <h5 class="modal-title text-center text-white"><i class="icofont-wink-smile"></i> Welcome back!</h5>
+
+                    <form action="#" method="get">
+                        <div class="mb-3 mt-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="icofont-at"></i></span>
+                                <input id="email" type="text" class="form-control" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd" class="form-label">Password:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="icofont-key"></i></span>
+                                <input id="pwd" type="password" class="form-control" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-check mb-3">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                            </label>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-block"><i class="icofont-login"></i> Login</button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="modal-footer text-center">
+                    Don't have an account? <a href="javascript:void(0)" title="Register"
+                        class="link-highlight">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template id="movie-list-item">
+        <div class="col mt-3 movie-item">
+            <div class="media-box">
+                <a href="#" class="full-click"></a>
+                <div class="media-thumb" style="background-image: url()"></div>
+                <!-- Start media-play -->
+                <a href="#" class="media-play">
+                    <i class="icofont-ui-play"></i>
+                </a>
+                <!-- Start rate-quality-info -->
+                <div class="rate-quality-info">
+                    <span class="media-badge bg-dark">HD</span>
+                    <span class="rate icofont-star">8.9</span>
+                </div>
+                <div class="media-info">
+                    <a href="movies.html" class="media-box-category">
+                        <i class="icofont-video-alt"></i>
+                        English Movies
+                    </a>
+                    <h5 class="media-box-title">Lady Chatterley's Lover</h5>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="assets/js/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+
+</html>
