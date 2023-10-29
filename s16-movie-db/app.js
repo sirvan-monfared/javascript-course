@@ -1,10 +1,11 @@
-
 class Search {
     constructor() {
         this._formElm = document.getElementById('filter-form');
         this._selectBoxes = this._formElm.querySelectorAll('select');
         this._clearBtn = this._formElm.querySelector('[data-clears-filter]');
         this._keywordElm = this._formElm.querySelector('#keyword-search');
+
+        this._debounceTimer = null;
 
         this._handleFilter();
     }
@@ -16,7 +17,9 @@ class Search {
 
         this._clearBtn.addEventListener('click', this._clearadvancedFilter.bind(this));
 
-        this._keywordElm.addEventListener('keyup', this._byKeywordFilter.bind(this));
+        this._keywordElm.addEventListener('keyup', () => {
+            this._debounce(this._byKeywordFilter.bind(this));
+        });
     }
 
     async _byKeywordFilter() {
@@ -87,6 +90,18 @@ class Search {
         })
 
         this._selectBoxes[0].dispatchEvent(new Event('change'));
+    }
+
+    
+    _setTimer (callback, delay = 500) {
+        this._debounceTimer = setTimeout(() => {
+            callback();
+        }, delay);
+    }
+
+    _debounce(callback, delay) {
+        clearTimeout(this._debounceTimer);
+        this._setTimer(callback, delay);
     }
 }
 
