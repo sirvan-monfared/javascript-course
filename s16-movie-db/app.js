@@ -10,9 +10,15 @@ class Search {
         this._handleFilter();
     }
 
+    async byAdvancedFilter() {
+        const movies = await this._advancedFilterRequest();
+
+        this._fireMovieFetchedEvent(movies);
+    }
+
     _handleFilter() {
         this._selectBoxes.forEach((selectElm) => {
-            selectElm.addEventListener('change', this._byAdvancedFilter.bind(this));
+            selectElm.addEventListener('change', this.byAdvancedFilter.bind(this));
         })
 
         this._clearBtn.addEventListener('click', this._clearadvancedFilter.bind(this));
@@ -24,7 +30,7 @@ class Search {
 
     async _byKeywordFilter() {
         if (this._keywordElm.value.trim() === '') {
-            this._byAdvancedFilter();
+            this.byAdvancedFilter();
             return;
         }
 
@@ -33,19 +39,16 @@ class Search {
         this._fireMovieFetchedEvent(movies);
     }
 
-    async _byAdvancedFilter() {
-        const movies = await this._advancedFilterRequest();
-
-        this._fireMovieFetchedEvent(movies);
-    }
-
     async _keywordFilterRequest() {
+        Loading.show();
+        
         const {data: response} = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${this._keywordElm.value}`);
 
         return response.results;
     }
 
     async _advancedFilterRequest() {
+        Loading.show();
         const queryStrings = this._convertParamsToQueryStrings(this._advancedFilterParams());
 
         const {data: response} = await axios.get(`https://api.themoviedb.org/3/discover/movie?${queryStrings}`);
@@ -102,6 +105,22 @@ class Search {
     _debounce(callback, delay) {
         clearTimeout(this._debounceTimer);
         this._setTimer(callback, delay);
+    }
+}
+
+class Loading {
+    static show() {
+        const loading =  document.getElementById('loading');
+
+        loading.classList.remove('hidden');
+        loading.nextElementSibling.classList.add('hidden');
+    }
+
+    static hide() {
+        const loading =  document.getElementById('loading');
+
+        loading.classList.add('hidden');
+        loading.nextElementSibling.classList.remove('hidden');
     }
 }
 
@@ -167,18 +186,13 @@ class MovieList {
     constructor() {
         this.listElm = document.getElementById('movies-list');
         this.templateElm = document.getElementById('movie-list-item');
-        this.fetchTrends();
 
         this._listentToNewFetchedMovies();
     }
 
-    async fetchTrends() {
-        const {data: response} = await axios.get('https://api.themoviedb.org/3/trending/movie/week?language=en-US');
-
-        this.render(response.results);
-    }
-
     render(movies) {
+        Loading.show();
+        
         this.listElm.innerHTML = '';
         
         movies.forEach((movie) => {
@@ -190,7 +204,9 @@ class MovieList {
             movieElm.querySelector('.media-thumb').style.backgroundImage = `url(https://image.tmdb.org/t/p/w300/${movie.poster_path})`;
 
             this.listElm.append(movieElm);
-        })
+        });
+
+        Loading.hide();
     }
 
     _listentToNewFetchedMovies() {
@@ -207,6 +223,8 @@ class LaraMovie {
         this.genereList = new GenreList();
         this.yearsList = new YearsList();
         this.search = new Search();
+
+        this.search.byAdvancedFilter();
     }
 }
 
