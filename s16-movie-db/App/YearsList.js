@@ -1,4 +1,4 @@
-export class YearsList {
+export default class {
     constructor() {
         this.selectElm = document.getElementById('filter-years');
 

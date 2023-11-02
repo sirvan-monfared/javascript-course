@@ -1,3 +1,5 @@
+console.log('this is loading');
+
 export class Loading {
     static show() {
         const loading =  document.getElementById('loading');

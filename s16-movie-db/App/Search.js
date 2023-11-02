@@ -1,5 +1,7 @@
 import {Loading} from './Loading.js';
 
+
+
 export class Search {
     constructor() {
         this._formElm = document.getElementById('filter-form');
@@ -31,6 +33,7 @@ export class Search {
     }
 
     async _byKeywordFilter() {
+        
         if (this._keywordElm.value.trim() === '') {
             this.byAdvancedFilter();
             return;
@@ -90,6 +93,10 @@ export class Search {
     }
 
     _clearadvancedFilter() {
+        import('./Clearing.js').then(module => {
+            new module.Clearing();
+        })
+
         this._selectBoxes.forEach((selectElm) => {
             selectElm.value = '';
         })
